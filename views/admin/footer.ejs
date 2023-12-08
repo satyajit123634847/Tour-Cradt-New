@@ -1,0 +1,292 @@
+<!-- content-wrapper ends -->
+<!-- partial:partials/_footer.html -->
+<footer class="footer">
+    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2023 Cryolor asia
+            pacific. All right reserved. Developed by <a href="https://greenbuds.co.in/">Greenbuds</a></span>
+
+    </div>
+</footer>
+<!-- partial -->
+</div>
+<!-- main-panel ends -->
+</div>
+<!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+
+
+
+
+
+
+<!-- -------Password Change  model---------------- -->
+<!-- Button trigger modal -->
+<button type="button" id="password_changes_btn" class="btn btn-primary" data-toggle="modal"
+    data-target="#password_changes_model" style="display: none;">
+    Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="password_changes_model" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Reset Password</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+
+
+
+                        <div class="form-group">
+                            <label for="exampleInputCity1">Reset Password</label>
+                            <input type="password" class="form-control" id="reset_password" placeholder="******">
+
+
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputCity1">Confirm Reset Password</label>
+                            <input type="password" class="form-control" id="reset_password1" placeholder="******">
+
+                        </div>
+
+
+
+
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" id="forword_btn" onclick="reset_password()" class="btn btn-primary">Reset
+                    Password</button>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+</div>
+
+<!-- ------------Password change end -->
+
+
+
+
+
+
+
+
+<!-- plugins:js -->
+<script src="vendors/js/vendor.bundle.base.js"></script>
+<!-- endinject -->
+<!-- Plugin js for this page -->
+<script src="vendors/chart.js/Chart.min.js"></script>
+<script src="vendors/datatables.net/jquery.dataTables.js"></script>
+<script src="vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+<script src="js/dataTables.select.min.js"></script>
+
+<!-- End plugin js for this page -->
+<!-- inject:js -->
+<script src="js/off-canvas.js"></script>
+<script src="js/hoverable-collapse.js"></script>
+<script src="js/template.js"></script>
+<script src="js/settings.js"></script>
+<script src="js/todolist.js"></script>
+<!-- endinject -->
+<!-- Custom js for this page-->
+<script src="js/dashboard.js"></script>
+<script src="js/Chart.roundedBarCharts.js"></script>
+<!-- End custom js for this page-->
+
+<script src="helper/parsley.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+
+<script>
+    var login = sessionStorage.getItem("admin_login")
+
+    var base_url = "<%=base_url%>";
+    if (login == true || login == "true") {
+        var name = sessionStorage.getItem("user_name")
+        $("#user_name_show").text(name)
+
+        name = sessionStorage.getItem("name")
+        $("#name_show").text(name)
+
+    } else if (login == "false" || login == false) {
+        // window.location = "/login"
+    }
+    else {
+        // window.location = "/login"
+    }
+
+
+
+    // -------logout code----------------//
+    $("#admin_logout").click(function () {
+        sessionStorage.setItem("admin_login", false)
+        sessionStorage.setItem("name", null)
+        sessionStorage.setItem("user_name", null)
+        sessionStorage.setItem("user_id", null)
+        sessionStorage.setItem("user_status", null)
+        sessionStorage.setItem("user_token", null)
+
+        toastr.error("Logout Successfully...!", '', { timeOut: 3000 })
+        setTimeout(() => {
+            window.location = '/login';
+
+        }, 1000);
+    })
+
+    function change_password() {
+
+        $("#password_changes_btn").click()
+
+
+
+    }
+
+    function reset_password() {
+
+        var reset_password = $("#reset_password").val()
+        var reset_password1 = $("#reset_password1").val()
+
+        if (reset_password != "" && reset_password1 != "") {
+
+            if (reset_password === reset_password1) {
+
+                var obj = new Object()
+
+                obj.password = reset_password
+                obj.admin_id = sessionStorage.getItem("user_id")
+
+                console.log(obj)
+                var $request = $.ajax({
+                    url: `${base_url}/admin/reset_password`,
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(obj),
+                });
+
+                $request.done(function (data) {
+                    toastr.options.positionClass = 'toast-bottom-right';
+                    toastr.success(data.message, '', { timeOut: 3000 },)
+                   
+                    setTimeout(() => {
+                    location.reload(true)
+
+                }, 1000);
+
+
+                })
+
+
+
+            } else {
+                toastr.options.positionClass = 'toast-bottom-right';
+                toastr.error("Password ad confirm password is not match..!", '', { timeOut: 3000 })
+
+            }
+
+        } else {
+            toastr.options.positionClass = 'toast-bottom-right';
+            toastr.error("Please enter password", '', { timeOut: 3000 })
+
+        }
+
+    }
+
+
+
+    // ------check user role
+
+    var type = sessionStorage.getItem("user_status")
+
+    console.log(type)
+
+
+    if (type == "Super Admin") {
+        // $(".d_none_for_all").css("display", "block")
+        $(".d_none_for_all1").css("display", "block")
+
+
+
+    } else if (type == "Initiator Login") {
+
+        $(".super_admin").css("display", "none")
+        $(".d_none_for_all").css("display", "block")
+        $(".d_none_for_all1").css("display", "block")
+
+
+        
+
+
+    }
+    else if (type == "SCM Head" || type == "IT Team") {
+
+        $(".super_admin").css("display", "none")
+        $(".initiator_admin").css("display", "none")
+        $(".initiator_admin1").css("display", "block")
+        $(".d_none_for_all1").css("display", "block")
+
+
+
+
+
+
+
+
+    }
+    else if (type == "Finance Compliance Verification") {
+
+        $(".super_admin").css("display", "none")
+        $(".initiator_admin").css("display", "none")
+
+
+
+
+    } else if (type == "IT Team") {
+
+        $(".super_admin").css("display", "none")
+        $(".initiator_admin").css("display", "none")
+        $(".it_team_remove").css("display", "none")
+
+
+
+
+
+    } else if (type == "CFO") {
+
+        $(".super_admin").css("display", "none")
+        $(".initiator_admin").css("display", "none")
+
+
+
+
+    }
+
+
+
+
+</script>
+</body>
+
+
+</html>
