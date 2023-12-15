@@ -42,12 +42,12 @@
 
             <div class="section-tittle text-center mb-45 ">
               <span>Lorem ipsum dolor sit.</span>
-              <h2>Upcoming Events </h2>
+              <h2>Packages </h2>
             </div>
           </div>
         </div>
-        <div class="services-active">
-          <div class="col-lg-4 col-md-4 col-sm-6">
+        <div class="services-active" id="render_data">
+          <!-- <div class="col-lg-4 col-md-4 col-sm-6">
             <div class="single-cat mb-30">
               <div class="cat-img">
                 <img src="assets/img/gallery/services1.jpg" alt>
@@ -102,7 +102,7 @@
                 <p><a href="#">12 Jan - 18 Jan</a>5 Days</p>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </section>
@@ -195,7 +195,7 @@
         <div class="row justify-content-center">
           <div class="col-xl-8 col-lg-7 col-md-10">
             <div class="section-tittle  text-center mb-40">
-              <span>FAQ</span>
+              <!-- <span>FAQ</span> -->
               <h2>Full range of travel service</h2>
             </div>
           </div>
@@ -208,24 +208,10 @@
                 <div class="accordion" id="accordionExample">
 
                   <div class="card">
-                    <div class="card-header" id="headingTwo">
-                      <h2 class="mb-0">
-                        <a href="#" class="btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
-                          aria-expanded="false" aria-controls="collapseTwo">Lorem, ipsum dolor.</a>
-                      </h2>
-                    </div>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                      <div class="card-body">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odio, qui!
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="card">
                     <div class="card-header" id="headingOne">
                       <h2 class="mb-0">
                         <a href="#" class="btn-link" data-toggle="collapse" data-target="#collapseOne"
-                          aria-expanded="true" aria-controls="collapseOne">Lorem, ipsum dolor.</a>
+                          aria-expanded="true" aria-controls="collapseOne"> Packages.</a>
                       </h2>
                     </div>
                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
@@ -235,12 +221,27 @@
                       </div>
                     </div>
                   </div>
+                  <div class="card">
+                    <div class="card-header" id="headingTwo">
+                      <h2 class="mb-0">
+                        <a href="#" class="btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                          aria-expanded="false" aria-controls="collapseTwo">Visa.</a>
+                      </h2>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                      <div class="card-body">
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odio, qui!
+                      </div>
+                    </div>
+                  </div>
+
+
 
                   <div class="card">
                     <div class="card-header" id="headingThree">
                       <h2 class="mb-0">
                         <a href="#" class="btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
-                          aria-expanded="false" aria-controls="collapseThree">Lorem, ipsum dolor.</a>
+                          aria-expanded="false" aria-controls="collapseThree">Flight Tickets Booking.</a>
                       </h2>
                     </div>
                     <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
@@ -255,7 +256,7 @@
                     <div class="card-header" id="headingfouree">
                       <h2 class="mb-0">
                         <a href="#" class="btn-link collapsed" data-toggle="collapse" data-target="#collapseFoure"
-                          aria-expanded="false" aria-controls="collapseFoure">Lorem, ipsum dolor.</a>
+                          aria-expanded="false" aria-controls="collapseFoure">Destination.</a>
                       </h2>
                     </div>
                     <div id="collapseFoure" class="collapse" aria-labelledby="headingfouree"
@@ -281,7 +282,7 @@
         <div class="row">
           <div class="col-xl-12">
             <div class="details-btn text-center mt-40">
-              <a href="#" class="btn about-btn">Book Your Destination</a>
+              <a href="#" class="btn about-btn">Book Your Packages</a>
             </div>
           </div>
         </div>
@@ -343,4 +344,19 @@
 
   </main>
 
-<% include footer.ejs %>
+  <script src="website/index.js"></script>
+  <script src="helper/parsley.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <% include footer.ejs %>
+
+
+
+  <script>
+      $(document).ready(function () {
+          $(function () {
+              assistance.base_url = "<%=base_url%>";
+              assistance.init();
+          });
+
+      });
+  </script>

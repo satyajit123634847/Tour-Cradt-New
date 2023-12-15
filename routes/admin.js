@@ -37,6 +37,63 @@ router.get('/list_admin_by_role/:id', adminController.list_admin_by_role);
 // ------reset_password---------//
 router.post('/reset_password', adminController.reset_password);
 
+// ------add_location---------//
+router.post('/add_location', adminController.add_location);
+
+// ------list_location---------//
+router.get('/list_location', adminController.list_location);
+
+// ------update_location---------//
+router.put('/update_location/:id', adminController.update_location);
+
+// ------delete_location---------//
+router.put('/delete_location/:id', adminController.delete_location);
+
+// ------list_location_admin---------//
+router.get('/list_location_admin', adminController.list_location_admin);
+
+// ------list_location_by_country---------//
+router.get('/list_location_by_country', adminController.list_location_by_country);
+
+// ------add_packages---------//
+router.post('/add_packages', adminController.add_packages);
+
+// ------list_packages---------//
+router.get('/list_packages', adminController.list_packages);
+
+// ----list_packages_by_name----/
+router.get('/list_packages_by_name/:name', adminController.list_packages_by_name);
+
+
+// ------update_packages---------//
+router.put('/update_packages/:id', adminController.update_packages);
+
+// ------delete_packages---------//
+router.put('/delete_packages/:id', adminController.delete_packages);
+
+// ------list_packages_admin---------//
+router.get('/list_packages_admin', adminController.list_packages_admin);
+
+router.get('/send_msg', adminController.send_msg);
+
+
+
+
+// ------add_services---------//
+router.post('/add_services', adminController.add_services);
+
+// ------list_services---------//
+router.get('/list_services', adminController.list_services);
+
+// ------update_services---------//
+router.put('/update_services/:id', adminController.update_services);
+
+// ------delete_services---------//
+router.put('/delete_services/:id', adminController.delete_services);
+
+// ------list_services_admin---------//
+router.get('/list_services_admin', adminController.list_services_admin);
+
 
 
 

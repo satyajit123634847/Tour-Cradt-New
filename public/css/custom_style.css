@@ -101,3 +101,7 @@
 .d_none_for_all1{
   display:  none;
 }
+
+.header-area .main-menu ul li a{
+  text-decoration: none !important;
+}

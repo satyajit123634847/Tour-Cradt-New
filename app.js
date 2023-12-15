@@ -5,9 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var adminURouter = require('./routes/admin');
-var vendorRouter = require('./routes/vendor');
+
 
 require("./mongodb")
 
@@ -25,9 +24,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+
 app.use('/admin', adminURouter);
-app.use('/vendor', vendorRouter);
+
 
 
 

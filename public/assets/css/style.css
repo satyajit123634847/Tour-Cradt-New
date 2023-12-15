@@ -765,7 +765,8 @@ li {
     transition: all .3s ease-out 0s;
     text-transform: normal;
     font-family: "Josefin Sans", sans-serif;
-    position: relative
+    position: relative;
+    text-decoration: none !important;
 }
 
 .header-area .main-menu ul li a::after {
@@ -1446,9 +1447,10 @@ li {
 }
 
 .project-us .collapse-wrapper .card-header h2 a.collapsed::after {
-    content: "\e61a";
+    content: "\f067";/* Unicode for the minus symbol in Font Awesome 4 */
     font-weight: 800;
-    color: #F9931D
+    color: #F9931D;
+    font-family: 'FontAwesome'; /* Font family name for Font Awesome 4 */
 }
 
 .project-us .collapse-wrapper .card-header h2 a::after {
@@ -1458,9 +1460,14 @@ li {
     color: #F9931D;
     left: 8px;
     font-weight: 600;
-    content: "\e622";
-    font-family: 'themify'
+    /* Use the Font Awesome classes for the plus icon */
+    /* Unicode for the plus icon in Font Awesome 4 */
+    font-family: 'FontAwesome'; /* Font family name for Font Awesome 4 */
+    content: "\f068";
 }
+
+
+
 
 .project-us .collapse-wrapper .card-body {
     background: #fff;
@@ -1720,7 +1727,9 @@ li {
 
 .services-section .single-cat .cat-img {
     overflow: hidden;
-    border-radius: 5px 5px 0px 0px
+    border-radius: 5px 5px 0px 0px;
+    width: 100%;
+    height: 226px
 }
 
 .services-section .single-cat .cat-img img {
@@ -1765,7 +1774,7 @@ li {
 }
 
 .services-section .single-cat .cat-cap .pricing .price {
-    font-size: 22px;
+    font-size: 17px;
     font-weight: 700;
     color: #F9931D;
     line-height: 1
@@ -4048,4 +4057,30 @@ del {
 
 .switch-wrap {
     margin-bottom: 10px
+}
+
+
+
+
+
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-container input {
+    padding: 10px;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-container button {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }

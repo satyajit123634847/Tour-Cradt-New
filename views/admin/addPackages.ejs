@@ -1,0 +1,198 @@
+<%- include('header.ejs') %>
+    <style>
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #444;
+            line-height: 17px;
+        }
+
+        .select2-container .select2-selection--single {
+            box-sizing: border-box;
+            cursor: pointer;
+            display: block;
+            height: 46px;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 43px;
+            position: absolute;
+            top: 1px;
+            right: 1px;
+            width: 20px;
+        }
+    </style>
+
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Add Packages </h4>
+
+                            <form id="addAssistance" data-parsley-validate>
+
+                                <input type="hidden" id="id">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputUsername1">Name</label>
+                                            <input type="text" class="form-control" id="name" placeholder="Name"
+                                                required="" data-parsley-required-message="Please Enter Name">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputUsername1">Select Location</label>
+                                            <select class="form-control" id="location_id">
+                                                
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputUsername1">Tour Type</label>
+                                            <select class="form-control" id="tour_type">
+                                                <option value="Daily Tour">Daily Tour</option>
+
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputUsername1">Group Size</label>
+                                            <input type="text" class="form-control" id="group_size"
+                                                placeholder="Enter Group Size" required=""
+                                                data-parsley-required-message="Please Enter Group Size">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputUsername1">Price</label>
+                                            <input type="text" class="form-control" id="price"
+                                                placeholder="Enter Price" required=""
+                                                data-parsley-required-message="Please Enter Price">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputCity1">Banner Image</label>
+                                            <input type="file" class="form-control" id="attachment_revert"
+                                                placeholder="Location" accept="image/png, image/gif, image/jpeg"
+                                                onchange="assistance.upload_gst_files(this)">
+                                            <div class="img_pre mt-2" id="sign_section" style="display: flex;">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="exampleInputCity1">Packages Image</label>
+                                            <input type="file" class="form-control" id="attachment_revert1"
+                                                placeholder="Location" accept="image/png, image/gif, image/jpeg"
+                                                onchange="assistance.upload_gst_files1(this)" multiple>
+                                            <div class="img_pre mt-2" id="packages_img_section" style="display: flex;">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-12 mt-2">
+
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <h3>Add Days</h3>
+                                            </div>
+                                        </div>
+                                        <div id="add_school">
+                                            <div class="row get_school">
+                                                <div class="col-md-3 mt-2">
+                                                    <label for="exampleInputEmail1"> Name <span
+                                                            style="color: red;"></span></label>
+                                                    <input type="text" class="form-control school_name" id=""
+                                                        name="school_name" aria-describedby="emailHelp"
+                                                        placeholder="Enter name"
+                                                        data-parsley-required-message="Please name ">
+                                                </div>
+                                                <div class="col-md-6 mt-2">
+                                                    <label for="exampleInputEmail1">Description <span
+                                                            style="color: red;"></span></label>
+                                                    <input type="text" class="form-control school_distance"
+                                                        id="school_distance" name="school_distance"
+                                                        aria-describedby="emailHelp" placeholder="Enter Description"
+                                                        data-parsley-required-message="Please Description ">
+                                                </div>
+                                                <div class="col-md-3 mt-4">
+                                                    <a class="btn btn-primary mt-3"
+                                                        onclick="assistance.add_school()">+ ADD MORE</a>
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 mt-3">
+                                        <button type="submit" class="btn btn-primary mr-2 mt-3"
+                                            id="submit_data">Submit</button>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Packages List</h4>
+
+                            <div class="table-responsive pt-3">
+                                <table class="table table-bordered" id="add_assistance_table">
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <%- include('footer.ejs') %>
+
+
+
+            <script src="admin/addPackages.js"></script>
+            <script src="helper/parsley.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+            <script>
+                $(document).ready(function () {
+                    $(function () {
+                        assistance.base_url = "<%=base_url%>";
+                        assistance.init();
+                    });
+                });
+            </script>
