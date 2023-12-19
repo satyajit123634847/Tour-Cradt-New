@@ -3,6 +3,7 @@ const adminUsers = require("../../model/admin/adminUser.model");
 const locationModel = require("../../model/admin/location.model");
 const packagesModel = require("../../model/admin/packages.model");
 const servicesModel = require("../../model/admin/services.model");
+const destinationModel = require("../../model/admin/destination.model");
 
 const jwt = require("jsonwebtoken");
 
@@ -343,21 +344,21 @@ exports.list_location_by_country = async (req, res) => {
   try {
     const data = await locationModel.aggregate([
       {
-        $match: { status: true }
+        $match: { status: true },
       },
       {
         $group: {
-          _id: '$country_name',
-          locations: { $push: '$location_name' },
-        }
+          _id: "$country_name",
+          locations: { $push: "$location_name" },
+        },
       },
       {
         $project: {
-          country_name: '$_id',
+          country_name: "$_id",
           locations: 1,
           _id: 0,
-        }
-      }
+        },
+      },
     ]);
 
     return res.json({
@@ -375,7 +376,6 @@ exports.list_location_by_country = async (req, res) => {
   }
 };
 
-
 // ---------add_packages---------------------//
 exports.add_packages = async (req, res) => {
   const {
@@ -387,6 +387,7 @@ exports.add_packages = async (req, res) => {
     days,
     location_id,
     price,
+
   } = req.body;
   const existingUser = await packagesModel.findOne({
     name: name,
@@ -398,6 +399,8 @@ exports.add_packages = async (req, res) => {
       message: "Packages already exists",
     });
   }
+
+  var days_count = days.length;
   new packagesModel({
     name,
     tour_type,
@@ -407,6 +410,7 @@ exports.add_packages = async (req, res) => {
     days,
     location_id,
     price,
+    days_count
   })
     .save()
     .then((data) => {
@@ -484,6 +488,7 @@ exports.update_packages = async (req, res) => {
     price,
   } = req.body;
 
+  var days_count = days.length;
   packagesModel
     .findByIdAndUpdate(
       { _id: req.params.id },
@@ -496,6 +501,7 @@ exports.update_packages = async (req, res) => {
         days,
         location_id,
         price,
+        days_count
       }
     )
     .then((data) => {
@@ -545,6 +551,71 @@ exports.delete_packages = async (req, res) => {
 exports.list_packages_admin = async (req, res) => {
   packagesModel
     .find({})
+    .populate("location_id")
+    .then((data) => {
+      return res.json({
+        status: true,
+        data: data,
+        message: "Location list",
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.json({
+        status: false,
+        data: err,
+        message: "Somethings went wrong...!",
+      });
+    });
+};
+
+// --------filter_packages-----------//
+exports.filter_packages = async (req, res) => {
+  var query = {};
+  console.log(req.body);
+
+  if (req.body.location_id != "0" && req.body.duration == "0") {
+    query = { location_id: req.body.location_id, status: true };
+  } else if (req.body.location_id == "0" && req.body.duration != "0") {
+    var rang_from = 0
+    var rang_to = 0
+
+    if (req.body.duration == "1") {
+      rang_from = 1
+      rang_to = 2
+    } else if (req.body.duration == "2") {
+      rang_from = 2
+      rang_to = 5
+    } else if (req.body.duration == "3") {
+      rang_from = 5
+      rang_to = 10
+    } else if (req.body.duration == "4") {
+      rang_from = 10
+      rang_to = 15
+    }
+
+    query = { days_count: { $gte: rang_from, $lte: rang_to }, status: true };
+  }else{
+    var rang_from = 0
+    var rang_to = 0
+
+    if (req.body.duration == "1") {
+      rang_from = 1
+      rang_to = 2
+    } else if (req.body.duration == "2") {
+      rang_from = 2
+      rang_to = 5
+    } else if (req.body.duration == "3") {
+      rang_from = 5
+      rang_to = 10
+    } else if (req.body.duration == "4") {
+      rang_from = 10
+      rang_to = 15
+    }
+    query = { location_id: req.body.location_id, status: true , days_count: { $gte: rang_from, $lte: rang_to }};
+  }
+  packagesModel
+    .find(query)
     .populate("location_id")
     .then((data) => {
       return res.json({
@@ -690,25 +761,25 @@ exports.list_services_admin = async (req, res) => {
 };
 
 exports.send_msg = async (req, res) => {
-    const twilio = require("twilio");
-  
-    // Replace these values with your Twilio credentials and Twilio phone number
-    const accountSid = "ACadb7424cea6ebc4fe55c520cd0103167";
-    const authToken = "e7915824e41c46425776ee75973b67d4";
-    const twilioPhoneNumber = "whatsapp:+14155238886"; // Replace with your Twilio phone number
-  
-    const client = new twilio(accountSid, authToken);
-  
-    const recipientPhoneNumber = "whatsapp:+8459842851"; // Replace with the recipient's phone number
-  
-    const messageOptions = {
-      from: twilioPhoneNumber,
-      to: recipientPhoneNumber,
-      body: "Hello, this is a normal WhatsApp message!",
-    };
-  
-    // Send the WhatsApp message
-    client.messages
+  const twilio = require("twilio");
+
+  // Replace these values with your Twilio credentials and Twilio phone number
+  const accountSid = "ACadb7424cea6ebc4fe55c520cd0103167";
+  const authToken = "e7915824e41c46425776ee75973b67d4";
+  const twilioPhoneNumber = "whatsapp:+14155238886"; // Replace with your Twilio phone number
+
+  const client = new twilio(accountSid, authToken);
+
+  const recipientPhoneNumber = "whatsapp:+8459842851"; // Replace with the recipient's phone number
+
+  const messageOptions = {
+    from: twilioPhoneNumber,
+    to: recipientPhoneNumber,
+    body: "Hello, this is a normal WhatsApp message!",
+  };
+
+  // Send the WhatsApp message
+  client.messages
     .create(messageOptions)
     .then((message) => {
       console.log("Message sent successfully:", message.sid);
@@ -716,6 +787,154 @@ exports.send_msg = async (req, res) => {
     .catch((error) => {
       console.error("Error sending message:", error);
     });
-  
-  };
-  
+};
+
+// ---------add_destination---------------------//
+exports.add_destination = async (req, res) => {
+  const { name, description, banner_img, country_name } = req.body;
+  const existingUser = await destinationModel.findOne({
+    name: name,
+    status: true,
+  });
+  if (existingUser) {
+    return res.json({
+      status: false,
+      message: "Destination already exists",
+    });
+  }
+  new destinationModel({ name, description, banner_img, country_name })
+    .save()
+    .then((data) => {
+      return res.json({
+        status: true,
+        data: data,
+        message: "services register successfully..!",
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.json({
+        status: false,
+        data: err,
+        message: "Somethings went wrong...!",
+      });
+    });
+};
+
+// ----------list_destination -------------//
+exports.list_destination = async (req, res) => {
+  try {
+    const data = await destinationModel.aggregate([
+      {
+        $match: { status: true },
+      },
+      // {
+      //   $lookup: {
+      //     from: "packages",
+      //     localField: "country_name",
+      //     foreignField: "country_name",
+      //     as: "packages",
+      //   },
+      // },
+      // {
+      //   $lookup: {
+      //     from: "locations",
+      //     localField: "packages.location_id",
+      //     foreignField: "country_name",
+      //     as: "packages",
+      //   },
+      // },
+      // {
+      //   $group: {
+      //     _id: "$country_name",
+      //     projectCount: { $sum: 1 },
+      //   },
+      // },
+    ]);
+
+    return res.json({
+      status: true,
+      data: data,
+      message: "Destination list grouped by country with project count",
+    });
+  } catch (err) {
+    return res.json({
+      status: false,
+      data: err,
+      message: "Something went wrong...!",
+    });
+  }
+};
+
+// ----------update_destination---------------//
+exports.update_destination = async (req, res) => {
+  const { name, description, banner_img, country_name } = req.body;
+
+  destinationModel
+    .findByIdAndUpdate(
+      { _id: req.params.id },
+      { name, description, banner_img, country_name }
+    )
+    .then((data) => {
+      return res.json({
+        status: true,
+        data: data,
+        message: "Record update successfully..!",
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.json({
+        status: false,
+        data: err,
+        message: "Somethings went wrong...!",
+      });
+    });
+};
+
+// -----------delete_destination------------//
+exports.delete_destination = async (req, res) => {
+  destinationModel
+    .findByIdAndUpdate(
+      { _id: req.params.id },
+      {
+        status: false,
+      }
+    )
+    .then((data) => {
+      return res.json({
+        status: true,
+        data: data,
+        message: "Record delete successfully..!",
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.json({
+        status: false,
+        data: err,
+        message: "Somethings went wrong...!",
+      });
+    });
+};
+
+// ----------list_destination_admin -------------//
+exports.list_destination_admin = async (req, res) => {
+  destinationModel
+    .find({})
+    .then((data) => {
+      return res.json({
+        status: true,
+        data: data,
+        message: "destination list",
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.json({
+        status: false,
+        data: err,
+        message: "Somethings went wrong...!",
+      });
+    });
+};

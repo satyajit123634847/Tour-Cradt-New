@@ -63,6 +63,10 @@ router.get('/add-services', function(req, res, next) {
   res.render('admin/addServices', { title: 'Add-Services', base_url: process.env.base_url });
 });
 
+// -----destination.ejs-------------//
+router.get('/add-destination', function(req, res, next) {
+  res.render('admin/destination', { title: 'Add-Destination', base_url: process.env.base_url });
+});
 
 
 

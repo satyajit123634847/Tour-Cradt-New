@@ -74,6 +74,9 @@ router.put('/delete_packages/:id', adminController.delete_packages);
 // ------list_packages_admin---------//
 router.get('/list_packages_admin', adminController.list_packages_admin);
 
+//-------filter_packages---------//
+router.post('/filter_packages', adminController.filter_packages);
+
 router.get('/send_msg', adminController.send_msg);
 
 
@@ -95,6 +98,22 @@ router.put('/delete_services/:id', adminController.delete_services);
 router.get('/list_services_admin', adminController.list_services_admin);
 
 
+
+
+// ------add_destination---------//
+router.post('/add_destination', adminController.add_destination);
+
+// ------list_destination---------//
+router.get('/list_destination', adminController.list_destination);
+
+// ------update_destination---------//
+router.put('/update_destination/:id', adminController.update_destination);
+
+// ------delete_destination---------//
+router.put('/delete_destination/:id', adminController.delete_destination);
+
+// ------list_destination_admin---------//
+router.get('/list_destination_admin', adminController.list_destination_admin);
 
 
 

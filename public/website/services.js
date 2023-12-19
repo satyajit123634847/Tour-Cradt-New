@@ -26,7 +26,7 @@ var assistance = {
                         <div class="cat-img">
                             <img src="${assistance.base_url}/files/${info.banner_img}" alt>
                         </div>
-                        <div class="cat-cap">
+                        <div class="cat-cap" >
                             <div class="pricing d-flex justify-content-between">
                                 <h3><a href="events_details.html">${info.name}</a></h3>
                             </div>
