@@ -634,6 +634,44 @@ exports.filter_packages = async (req, res) => {
     });
 };
 
+// -----list_packages_country--------//
+exports.list_packages_country = async (req, res) => {
+  try {
+    const data = await packagesModel.aggregate([
+      {
+        $lookup: {
+          from: "locations",
+          localField: "location_id",
+          foreignField: "_id",
+          as: "location",
+        },
+      },
+      {
+        $unwind: "$location", // unwind the location array
+      },
+      {
+        $match: {
+          status: true,
+          "location.country_name": req.params.name,
+        },
+      },
+    ]);
+
+    return res.json({
+      status: true,
+      data: data,
+      message: "Destination list grouped by country with project count",
+    });
+  } catch (err) {
+    return res.json({
+      status: false,
+      data: err,
+      message: "Something went wrong...!",
+    });
+  }
+};
+
+
 // ---------add_services---------------------//
 exports.add_services = async (req, res) => {
   const { name, description, banner_img } = req.body;

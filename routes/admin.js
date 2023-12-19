@@ -77,6 +77,10 @@ router.get('/list_packages_admin', adminController.list_packages_admin);
 //-------filter_packages---------//
 router.post('/filter_packages', adminController.filter_packages);
 
+// -----list_packages_country-------//
+router.get('/list_packages_country/:name', adminController.list_packages_country);
+
+
 router.get('/send_msg', adminController.send_msg);
 
 
