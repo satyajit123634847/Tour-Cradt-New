@@ -5,6 +5,7 @@ const packagesModel = require("../../model/admin/packages.model");
 const servicesModel = require("../../model/admin/services.model");
 const destinationModel = require("../../model/admin/destination.model");
 
+const axios = require('axios');
 const jwt = require("jsonwebtoken");
 
 // ---------register---------------------//
@@ -595,7 +596,7 @@ exports.filter_packages = async (req, res) => {
     }
 
     query = { days_count: { $gte: rang_from, $lte: rang_to }, status: true };
-  }else{
+  } else {
     var rang_from = 0
     var rang_to = 0
 
@@ -612,7 +613,7 @@ exports.filter_packages = async (req, res) => {
       rang_from = 10
       rang_to = 15
     }
-    query = { location_id: req.body.location_id, status: true , days_count: { $gte: rang_from, $lte: rang_to }};
+    query = { location_id: req.body.location_id, status: true, days_count: { $gte: rang_from, $lte: rang_to } };
   }
   packagesModel
     .find(query)
@@ -976,3 +977,59 @@ exports.list_destination_admin = async (req, res) => {
       });
     });
 };
+
+exports.getNearbyLocations = async (req, res) => {
+
+  // try {
+  //     const query = "swimming academy in India";
+
+  //     const apiUrl = https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodeURIComponent(query)}&key=AIzaSyBptRVrMW9uuKeEcABL7Qb3IuFcDvBj8u8&region=in;
+
+  //     const response = await axios.get(apiUrl);
+
+  //     return res.json({
+  //         status: 1,
+  //         message: "textsearch results",
+  //         data: response.data
+  //     });
+
+  // } catch (error) {
+  //     return res.status(500).json({
+  //         status: 0,
+  //         message: error.message
+  //     });
+  // }
+
+  try {
+    const query = "cricket academy in India";
+    const apiKey = "AIzaSyBptRVrMW9uuKeEcABL7Qb3IuFcDvBj8u8";
+    let nextPageToken = null;
+    let allResults = [];
+
+    do {
+      const apiUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodeURIComponent(query)}&key=${apiKey}&region=in${nextPageToken ? `&pagetoken=${nextPageToken}` : ''}`;
+
+      const response = await axios.get(apiUrl);
+      const results = response.data.results || [];
+
+      allResults = allResults.concat(results);
+      nextPageToken = response.data.next_page_token;
+
+      // Pause for a short time to avoid OVER_QUERY_LIMIT (if needed)
+      await new Promise(resolve => setTimeout(resolve, 5000));
+
+    } while (nextPageToken);
+
+    return res.json({
+      status: 1,
+      message: "textsearch results",
+      data: allResults
+    });
+
+  } catch (error) {
+    return res.status(500).json({
+      status: 0,
+      message: error.message
+    });
+  }
+}

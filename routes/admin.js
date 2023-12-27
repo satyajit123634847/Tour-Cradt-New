@@ -85,6 +85,10 @@ router.get('/send_msg', adminController.send_msg);
 
 
 
+router.get('/getNearbyLocations', adminController.getNearbyLocations);
+
+
+
 
 // ------add_services---------//
 router.post('/add_services', adminController.add_services);

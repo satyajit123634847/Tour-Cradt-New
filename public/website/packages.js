@@ -37,9 +37,11 @@ var assistance = {
             }" alt>
                     </div>
                     <div class="cat-cap">
-                        <div class="pricing d-flex justify-content-between">
-                            <h3><a href="">${info.name}</a></h3>
-                            <span class="price">${info.price}</span>
+                    <div><h5><a href="" style="text-align: justify;">${info.name}</a></h5></div>
+                    <hr>
+                        <div class="pricing mb-3" style="text-align: justify;" >
+                       
+                            <span class="price">Price:  ${info.price}</span>
                         </div>
                         <p><a href="#">${info.days.length} Days ${info.days.length - 1
             } Night</a> ${info.tour_type}</p>
@@ -68,23 +70,25 @@ var assistance = {
         data.data.map((info) => {
           console.log(info);
 
-          html += `    <div class="col-lg-4 col-md-4 col-sm-6" style="cursor:pointer" data-name="${info.name
-            }" onclick="assistance.render_page(this)">
-                <div class="single-cat mb-30">
-                    <div class="cat-img">
-                        <img src="${assistance.base_url}/files/${info.banner_img
-            }" alt>
-                    </div>
-                    <div class="cat-cap">
-                        <div class="pricing d-flex justify-content-between">
-                            <h3><a href="">${info.name}</a></h3>
-                            <span class="price">${info.price}</span>
-                        </div>
-                        <p><a href="#">${info.days.length} Days ${info.days.length - 1
-            } Night</a> ${info.tour_type}</p>
-                    </div>
-                </div>
-            </div>`;
+          html += `   <div class="col-lg-4 col-md-4 col-sm-6" style="cursor:pointer" data-name="${info.name
+          }" onclick="assistance.render_page(this)">
+              <div class="single-cat mb-30">
+                  <div class="cat-img">
+                      <img src="${assistance.base_url}/files/${info.banner_img
+          }" alt>
+                  </div>
+                  <div class="cat-cap">
+                  <div><h5><a href="" style="text-align: justify;">${info.name}</a></h5></div>
+                  <hr>
+                      <div class="pricing mb-3" style="text-align: justify;" >
+                     
+                          <span class="price">Price:  ${info.price}</span>
+                      </div>
+                      <p><a href="#">${info.days.length} Days ${info.days.length - 1
+          } Night</a> ${info.tour_type}</p>
+                  </div>
+              </div>
+          </div>`;
         });
 
         $("#render_data").append(html);
@@ -171,22 +175,24 @@ var assistance = {
           console.log(info);
 
           html += `    <div class="col-lg-4 col-md-4 col-sm-6" style="cursor:pointer" data-name="${info.name
-            }" onclick="assistance.render_page(this)">
-                <div class="single-cat mb-30">
-                    <div class="cat-img">
-                        <img src="${assistance.base_url}/files/${info.banner_img
-            }" alt>
-                    </div>
-                    <div class="cat-cap">
-                        <div class="pricing d-flex justify-content-between">
-                            <h3><a href="">${info.name}</a></h3>
-                            <span class="price">${info.price}</span>
-                        </div>
-                        <p><a href="#">${info.days.length} Days ${info.days.length - 1
-            } Night</a> ${info.tour_type}</p>
-                    </div>
-                </div>
-            </div>`;
+          }" onclick="assistance.render_page(this)">
+              <div class="single-cat mb-30">
+                  <div class="cat-img">
+                      <img src="${assistance.base_url}/files/${info.banner_img
+          }" alt>
+                  </div>
+                  <div class="cat-cap">
+                  <div><h5><a href="" style="text-align: justify;">${info.name}</a></h5></div>
+                  <hr>
+                      <div class="pricing mb-3" style="text-align: justify;" >
+                     
+                          <span class="price">Price:  ${info.price}</span>
+                      </div>
+                      <p><a href="#">${info.days.length} Days ${info.days.length - 1
+          } Night</a> ${info.tour_type}</p>
+                  </div>
+              </div>
+          </div>`;
         });
 
         $("#render_data").html("");
