@@ -28,9 +28,10 @@ var assistance = {
                 </div>
                 <div class="cat-cap" style="min-height: 160px ">
                     <div class="pricing d-flex justify-content-between">
-                        <h3><a >${info.name}</a></h3>
-                        <p> <i class="fa fa-map-marker" aria-hidden="true"></i> ${info.country_name}</p>
+                        <h4><a >${info.name}</a></h4>
                     </div>
+                    <p style="text-align: justify;font-size:20px"> <i class="fa fa-map-marker" aria-hidden="true"></i> ${info.country_name}</p>
+                    <hr>
                     <p class="description">${truncateText(info.description, 100)}</p>
                     <p class="read-more" data-description="${info.description}" style="color:#F9931D"> Read More</p>
                 </div>

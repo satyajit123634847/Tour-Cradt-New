@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/packages', function(req, res, next) {
-  res.render('packages.ejs', { title: 'Home', base_url: process.env.base_url });
+  res.render('packages.ejs', { title: 'Packages', base_url: process.env.base_url });
 });
 
 // ----destination------------------//
