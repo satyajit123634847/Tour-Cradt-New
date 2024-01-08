@@ -1974,7 +1974,7 @@ li {
 }
 
 .footer-wrapper .footer-area .footer-tittle ul li a {
-    color: #8A8FBE;
+    color: white;
     font-weight: 400;
     font-size: 16px;
     text-decoration: underline transparent
@@ -1990,7 +1990,7 @@ li {
 }
 
 .footer-wrapper .footer-area .footer-tittle p {
-    color: #8A8FBE;
+    color: white;
     font-size: 16px
 }
 
@@ -2022,7 +2022,7 @@ li {
 }
 
 .footer-wrapper .footer-bottom-area .footer-copy-right p {
-    color: #8A8FBE;
+    color: white;
     font-weight: 400;
     font-size: 14px;
     line-height: 2
@@ -2033,7 +2033,7 @@ li {
 }
 
 .footer-wrapper .footer-bottom-area .footer-copy-right p a {
-    color: #F9931D
+    /* color: #F9931D */
 }
 
 .footer-wrapper .footer-bottom-area .footer-copy-right p a:hover {
@@ -2063,7 +2063,7 @@ li {
 .number a {
     font-family: "Roboto", sans-serif;
     font-size: 22px !important;
-    color: #F9931D !important;
+    color: white !important;
     margin-bottom: 0px;
     font-weight: 400 !important;
     display: block
@@ -2935,10 +2935,11 @@ li {
 }
 
 .footer-wrapper {
-    background: #1a2d6d;
+    /* background: #1a2d6d;
     background: -moz-linear-gradient(-45deg, #1a2d6d 0%, #0c1534 100%);
     background: -webkit-linear-gradient(-45deg, #1a2d6d 0%, #0c1534 100%);
-    background: linear-gradient(135deg, #1a2d6d 0%, #0c1534 100%);
+    background: linear-gradient(135deg, #1a2d6d 0%, #0c1534 100%); */
+    background: #cca373;
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1a2d6d', endColorstr='#0c1534', GradientType=1)
 }
 
