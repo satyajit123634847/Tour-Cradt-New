@@ -21,6 +21,10 @@ const adminSchema = new mongoose.Schema({
   banner_img: {
     type: String,
   },
+  inclusive: {
+    type: String,
+    default:""
+  },
   packages_imgs: {
     type: [],
   },

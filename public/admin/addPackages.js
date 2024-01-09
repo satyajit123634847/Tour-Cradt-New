@@ -155,6 +155,7 @@ var assistance = {
     obj.group_size = $("#group_size").val();
     obj.location_id = $("#location_id").val();
     obj.price = $("#price").val();
+    obj.inclusive = $("#inclusive").val();
 
     
 
@@ -247,7 +248,9 @@ var assistance = {
     $("#tour_type").val(obj.tour_type);
     $("#group_size").val(obj.group_size);
     $("#price").val(obj.price);
+    $("#inclusive").val(obj.inclusive);
 
+    
 
     $("#id").val(obj._id);
 

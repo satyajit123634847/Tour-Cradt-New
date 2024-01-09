@@ -6,7 +6,7 @@ var assistance = {
     assistance.load_packages();
 
   },
-  bind_events: function (e) {},
+  bind_events: function (e) { },
 
   load_data: function () {
     let params = new URLSearchParams(location.search);
@@ -27,6 +27,7 @@ var assistance = {
         var html = ``;
 
         var info = data.data[0];
+        console.log("info", info)
 
         $("#duration").text(
           `${info.days.length} Days ${info.days.length - 1} Night`
@@ -38,6 +39,14 @@ var assistance = {
         $("#location").text(`${info.location_id.location_name}, ${info.location_id.country_name}`);
 
 
+
+        if (info.inclusive != null && info.inclusive != "") {
+          $("#inclusive_section").show();
+          $("#inclusive_text").text(info.inclusive ? info.inclusive : "");
+        }
+        else {
+          $("#inclusive_section").hide();
+        }
         info.packages_imgs.push(info.banner_img);
         var img = "";
         console.log("...", assistance.base_url);
@@ -109,23 +118,20 @@ ${img}
         data.data.map((info) => {
           console.log(info);
 
-          html += `    <div class="col-lg-4 col-md-4 col-sm-6" style="cursor:pointer" data-name="${
-            info.name
-          }" onclick="assistance.render_page(this)">
+          html += `    <div class="col-lg-4 col-md-4 col-sm-6" style="cursor:pointer" data-name="${info.name
+            }" onclick="assistance.render_page(this)">
                 <div class="single-cat mb-30">
                     <div class="cat-img">
-                        <img src="${assistance.base_url}/files/${
-            info.banner_img
-          }" alt>
+                        <img src="${assistance.base_url}/files/${info.banner_img
+            }" alt>
                     </div>
                     <div class="cat-cap">
                         <div class="pricing d-flex justify-content-between">
                             <h3><a href="">${info.name}</a></h3>
                             <span class="price">${info.price}</span>
                         </div>
-                        <p><a href="#">${info.days.length} Days ${
-            info.days.length - 1
-          } Night</a> ${info.tour_type}</p>
+                        <p><a href="#">${info.days.length} Days ${info.days.length - 1
+            } Night</a> ${info.tour_type}</p>
                     </div>
                 </div>
             </div>`;

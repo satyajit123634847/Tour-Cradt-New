@@ -388,6 +388,7 @@ exports.add_packages = async (req, res) => {
     days,
     location_id,
     price,
+    inclusive
 
   } = req.body;
   const existingUser = await packagesModel.findOne({
@@ -411,7 +412,8 @@ exports.add_packages = async (req, res) => {
     days,
     location_id,
     price,
-    days_count
+    days_count,
+    inclusive
   })
     .save()
     .then((data) => {
@@ -457,7 +459,7 @@ exports.list_packages_by_name = async (req, res) => {
   console.log(req.params.name);
 
   packagesModel
-    .find({ name: req.params.name, status: true })
+    .find({ name: req.params.name})
     .populate("location_id")
     .then((data) => {
       return res.json({
@@ -487,6 +489,7 @@ exports.update_packages = async (req, res) => {
     days,
     location_id,
     price,
+    inclusive
   } = req.body;
 
   var days_count = days.length;
@@ -502,7 +505,8 @@ exports.update_packages = async (req, res) => {
         days,
         location_id,
         price,
-        days_count
+        days_count,
+        inclusive
       }
     )
     .then((data) => {
